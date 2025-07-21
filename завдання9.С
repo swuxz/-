@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <math.h>
+
+long long calculate_min_steps(long long x, long long y) {
+    long long D = y - x;
+
+    if (D == 0) {
+        return 0;
+    }
+
+    long long m = (long long)sqrt((double)D);
+
+    if ((m + 1) * (m + 1) <= D) {
+        m++;
+    } else if (m * m > D) {
+        m--;
+    }
+
+    if (D == m * m) {
+        return 2 * m - 1;
+    } else if (D <= m * m + m) {
+        return 2 * m;
+    } else {
+        return 2 * m + 1;
+    }
+}
+
+int main() {
+    printf("x=45, y=48 -> Expected: 3, Actual: %lld\n", calculate_min_steps(45, 48));
+    printf("x=45, y=49 -> Expected: 3, Actual: %lld\n", calculate_min_steps(45, 49));
+    printf("x=45, y=50 -> Expected: 4, Actual: %lld\n", calculate_min_steps(45, 50));
+    printf("x=45, y=51 -> Expected: 4, Actual: %lld\n", calculate_min_steps(45, 51));
+
+    printf("x=0, y=0 -> Expected: 0, Actual: %lld\n", calculate_min_steps(0, 0));
+    printf("x=0, y=1 -> Expected: 1, Actual: %lld\n", calculate_min_steps(0, 1));
+    printf("x=0, y=2 -> Expected: 2, Actual: %lld\n", calculate_min_steps(0, 2));
+    printf("x=0, y=3 -> Expected: 3, Actual: %lld\n", calculate_min_steps(0, 3));
+    printf("x=0, y=4 -> Expected: 3, Actual: %lld\n", calculate_min_steps(0, 4));
+    printf("x=0, y=5 -> Expected: 4, Actual: %lld\n", calculate_min_steps(0, 5));
+    printf("x=0, y=6 -> Expected: 4, Actual: %lld\n", calculate_min_steps(0, 6));
+    printf("x=0, y=7 -> Expected: 5, Actual: %lld\n", calculate_min_steps(0, 7));
+    printf("x=0, y=9 -> Expected: 5, Actual: %lld\n", calculate_min_steps(0, 9));
+    printf("x=0, y=10 -> Expected: 6, Actual: %lld\n", calculate_min_steps(0, 10));
+
+    long long max_val = (1LL << 31) - 1;
+    printf("x=0, y=%lld -> Actual: %lld\n", max_val, calculate_min_steps(0, max_val));
+
+    return 0;
+}

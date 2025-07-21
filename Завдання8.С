@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+long long factorial(int n) {
+    long long res = 1;
+    for (int i = 2; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+int main() {
+    char word[15];
+    int freq[256] = {0};
+    long long num_anagrams;
+    int N;
+
+    scanf("%s", word);
+
+    N = strlen(word);
+
+    num_anagrams = factorial(N);
+
+    for (int i = 0; i < N; i++) {
+        freq[(unsigned char)word[i]]++;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        if (freq[i] > 1) {
+            num_anagrams /= factorial(freq[i]);
+        }
+    }
+
+    printf("Кількість анаграм: %lld\n", num_anagrams);
+
+    return 0;
+}
